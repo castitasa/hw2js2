@@ -1,24 +1,37 @@
-const jsonData = '{"name": "John", "age": 30}';
+console.log('Загрузка данных...');
 
 const promise = new Promise((resolve, reject) => {
-  console.log('Загрузка данных...');
+  const error = true;
+
   setTimeout(() => {
-    const randomNum = Math.random();
-    if (randomNum < 0.5) {
-      resolve(jsonData);
+    if (!error){
+      const response = {
+          status: 200,
+          url: 'example.com',
+      };
+      resolve(response);
     } else {
-      reject('Ошибка при загрузке данных');
+      reject('Ошибка данных');
     }
   }, 2000);
 });
 
 promise
   .then((data) => {
-    console.log('Данные успешно загружены.');
-    const parsedData = JSON.parse(data);
-    console.log(parsedData);
+    console.log('Успешно загружены.', data);
+    setTimeout(() => {
+      const data = {
+        username: 'Aybiyke',
+        userage: 17,
+      };
+      const parsedData = JSON.parse(data);
+      console.log(parsedData);
+    })
   })
 
   .catch((error) => {
-    console.error('Ошибка:', error);
-  });
+    console.log('Ошибка:', error);
+  })
+  .finally(() => {
+    console.log('Конец загрузки!')
+  })
